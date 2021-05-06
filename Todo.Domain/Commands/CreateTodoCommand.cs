@@ -3,7 +3,7 @@
 using System;
 using Flunt.Notifications;
 using Flunt.Validations;
-using Todo.Domain.Contracts;
+using Todo.Domain.Commands.Contracts;
 
 namespace Todo.Domain.Commands{
     public class CreateTodoCommand: Notifiable, ICommand{
@@ -35,5 +35,9 @@ namespace Todo.Domain.Commands{
         }
     }
    
+
+
+
+
 
 }

@@ -4,7 +4,7 @@ using Todo.Domain.Commands.Contracts;
 //passo-a-passo que o handler deve executar
 namespace Todo.Domain.Handlers.Contracts{
     public interface IHandler<T> where T: ICommand{
-        ICommandResult Handle(ICommand command);
+        ICommandResult Handle(T command);
     }
 
 }

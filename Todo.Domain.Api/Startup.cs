@@ -5,7 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Todo.Domain.Handlers;
 using Todo.Domain.Infra.Contexts;
+using Todo.Domain.Repositories;
+using Todo.Main.Infra.Repositories;
 
 namespace Todo.Domain.Api
 {
@@ -22,6 +25,10 @@ namespace Todo.Domain.Api
         {
 
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+
+            services.AddTransient<ITodoRepository, TodoRepository>();
+            services.AddTransient<TodoHandler, TodoHandler>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +50,14 @@ namespace Todo.Domain.Api
 
             app.UseRouting();
 
+            //Enabling CORS (Cross-Origin Resource Sharing)
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
